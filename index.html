@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторна робота: Вимірювання мас тіл</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    <h1>Лабораторна робота № 5</h1>
+    <h2>Тема. Визначення густин твердого тіла та рідини</h2>
+
+    <div class="experiment-info">
+        <p><strong>Мета:</strong> визначити густини пропонованих твердого тіла  та  рідини.</p>
+        <p><strong>Обладнання:</strong> терези; лінійка; тверде тіло на нитці; мірна посудина з водою; склянка з досліджуваною рідиною; порожня склянка; паперові  серветки.</p>
+    </div>
+
+    <div class="experiment-steps">
+        <p><strong>Хід експерименту:</strong></p>
+        <ol>
+            <li>Виміряйте масу твердого тіла за допомогою  терезів.</li>
+            <li>Виміряйте об’єм твердого тіла за допомогою мірної посудини (див. рисунок).</li>
+            <li>Визначте масу та об’єм досліджуваної рідини:
+                <ul>
+                    <li>виміряйте масу склянки з досліджуваною рідиною;</li>
+                    <li>перелийте рідину в мірну посудину та виміряйте об’єм рідини;</li>
+                    <li>виміряйте масу порожньої склянки;</li>
+                    <li>обчисліть  масу  рідини.</li>
+                </ul>
+            </li>
+            <li>Визначте густину речовини, з якої виготовлено тверде тіло.</li>
+            <!--<li>Визначте густину досліджуваної рідини.</li>-->
+            <li>Користуючись таблицями густин, визначте речовини, які досліджено.</li>            
+        </ol>
+        <img src="img/img2.png" alt="demo">
+    </div>
+
+    <div class = "menu">
+        <button class="btn-main-menu" id="solidBody" onclick="execSolidBody()">Тверде тіло</button>
+        <button class="btn-main-menu" id="liquid" onclick="execLiquid()">Рідина</button>
+    </div>
+    
+    <div class="container"> 
+
+        <div class="lab-content">
+            <div class="experiment-area">
+                <div class="measuring-cylinder">
+                    <div class="cylinder-container">
+                        <div class="thread" id="thread"></div>
+                        <div class="object" id="object"></div>
+                        <div class="cylinder" id="cylinder">
+                            <div class="water" id="water"></div>
+                            <div class="water-surface"></div>
+                        </div>
+                        <div class="scale" id="scale"></div>
+                    </div>
+                </div>
+            
+                <div class="lab-table"></div>                
+            
+                <div class="controls-volume" id="controls-volume-solid">
+                    <button class="btn" id="change-body" disabled>Перетягніть тіло до нитки</button>
+                    <button class="btn" id="fill-water" disabled>Налити воду</button>
+                    <button class="btn" id="measure-initial" disabled>Виміряти початковий рівень</button>
+                    <button class="btn" id="submerge-object" disabled>Занурити тіло</button>
+                    <button class="btn" id="measure-final" disabled>Виміряти кінцевий рівень</button>
+                    <button class="btn" id="calculate-volume" disabled>Розрахувати об'єм</button>
+                    <!--<button class="btn" id="reset">Почати спочатку</button>-->
+                </div>   
+                
+                <div class="controls-volume" id="controls-volume-liquid">
+                    <button class="btn" id="change-body2" disabled>Перетягніть склянку з рідиною до циліндра</button>
+                    <button class="btn" id="calculate-volume2" disabled>Виміряти об'єм рідини</button>
+                </div>  
+
+                <div class="result" id="result"></div>
+            </div>
+        
+            <div class="balance-area">
+                <div class="balance-status" id="balanceStatus">Перетягніть об'єкт на ліву шальку для початку зважування</div>
+                
+                <div class="balance-container">
+                    <div class="balance-base">
+                        <div class="balance-pillar"></div>
+                        <div class="balance-axis"></div>
+                        <div class="balance-mark"></div>
+                        <div class="balance-arrow" id="balanceArrow"></div>
+                        <div class="balance-beam" id="balanceBeam">
+                            <div class="balance-pan left" id="leftPan">
+                                <div class="pan-contents" id="leftContents"></div>
+                            </div>
+                            <div class="balance-pan right" id="rightPan">
+                                <div class="pan-contents" id="rightContents"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls-mass">
+                    <button class="btn btn-success" onclick="recordResultMass()" id="recordBtn" disabled>
+                        Записати результат
+                    </button>
+                    <button class="btn btn-warning" id="clearBalance" onclick="clearBalance()">
+                        Очистити терези
+                    </button>
+                </div>
+            </div>
+
+            <div class="objects-section">
+                <h3 style="margin-bottom: 15px; color: #343a40;">Обладнання:</h3>
+                
+                <h4 style="margin-bottom: 10px; color: #6c757d;">Тіла для дослідження:</h4>
+                <div class="objects-grid" id="bodiesGrid">
+                    <div class="object-item" id="body1" draggable="true" data-type="body" data-mass="87" data-name="Тіло №1">
+                        <div class="object-visual" style="background: #FF6B6B;"></div>
+                        <small>Тіло №1</small>
+                    </div>
+                    <div class="object-item" id="body2" draggable="true" data-type="body" data-mass="124" data-name="Тіло №2">
+                        <div class="object-visual" style="background: #4ECDC4;"></div>
+                        <small>Тіло №2</small>
+                    </div>
+                    <div class="object-item" id="emptyGlass" draggable="true" data-type="body" data-mass="45" data-name="Порожня склянка">
+                        <div class="object-visual" style="background: linear-gradient(to bottom, transparent 20%, #E3F2FD 20%); border: 2px solid #2196F3;"></div>
+                        <small>Порожня склянка</small>
+                    </div>
+                    <div class="object-item" id="fullGlass" draggable="true" data-type="body" data-mass="245" data-name="Склянка з рідиною">
+                        <div class="object-visual" style="background: linear-gradient(to bottom, #2196F3 0%, #1976D2 100%); border: 2px solid #0D47A1;"></div>
+                        <small>Склянка з рідиною</small>
+                    </div>
+                </div>
+
+                <h4 style="margin: 20px 0 10px 0; color: #6c757d;">Важки:</h4>
+                <div class="objects-grid" id="weightsGrid">
+                    <div class="object-item" draggable="true" data-type="weight" data-mass="100">
+                        <div class="weight-visual">100г</div>
+                        <small>100 г</small>
+                    </div>
+                    <div class="object-item" draggable="true" data-type="weight" data-mass="50">
+                        <div class="weight-visual" style="width: 20px; height: 20px;">50г</div>
+                        <small>50 г</small>
+                    </div>
+                    <div class="object-item" draggable="true" data-type="weight" data-mass="20">
+                        <div class="weight-visual" style="width: 18px; height: 18px; font-size: 8px;">20г</div>
+                        <small>20 г</small>
+                    </div>
+                    <div class="object-item" draggable="true" data-type="weight" data-mass="10">
+                        <div class="weight-visual" style="width: 16px; height: 16px; font-size: 8px;">10г</div>
+                        <small>10 г</small>
+                    </div>
+                    <div class="object-item" draggable="true" data-type="weight" data-mass="5">
+                        <div class="weight-visual" style="width: 14px; height: 14px; font-size: 7px;">5г</div>
+                        <small>5 г</small>
+                    </div>
+                    <div class="object-item" draggable="true" data-type="weight" data-mass="2">
+                        <div class="weight-visual" style="width: 12px; height: 12px; font-size: 6px;">2г</div>
+                        <small>2 г</small>
+                    </div>
+                    <div class="object-item" draggable="true" data-type="weight" data-mass="1">
+                        <div class="weight-visual" style="width: 10px; height: 10px; font-size: 6px;">1г</div>
+                        <small>1 г</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<table class="results-table">
+            <thead>
+                <tr>
+                    <th>№ досліду</th>
+                    <th>Зважуване тіло</th>
+                    <th>Набір важків на шальці</th>
+                    <th>Маса тіла m₀, г</th>
+                </tr>
+            </thead>
+            <tbody id="resultsBody">
+            </tbody>
+        </table>-->
+
+        <table class="calculations-body">
+            <thead>
+                <tr>
+                    <th>Досліджуване тіло</th>
+                    <th>Початковий рівень води</th>
+                    <th>Кінцевий рівень води</th>
+                    <th>Об'єм тіла</th>
+                </tr>
+            </thead>
+            <tbody id="resultCalculationBody">
+            </tbody>
+        </table>
+
+        <table class="calculations-liquid">
+            <thead>
+                <tr>
+                    <th>Досліджуване тіло</th>
+                    <th>Маса<br>m, г</th>
+                    <th>Об'єм рідини<br>V, мл</th>
+                </tr>
+            </thead>
+            <tbody id="resultCalculationLiquid">
+            </tbody>
+        </table>
+
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Досліджуване<br>тіло або рідина</th>
+                    <th rowspan="2">Маса<br>m, г</th>
+                    <th rowspan="2">Об'єм<br>V, см<sup>3</sup></th>
+                    <th colspan = "2">Густина, &rho;</th>
+                    <th rowspan="2">Речовина</th>
+                </tr>
+                <tr>                    
+                    <th>г/см<sup>3</sup></th>
+                    <th>кг/м<sup>3</sup></th>                    
+                </tr>
+            </thead>
+            <tbody id="resultsBodyDensity">
+            </tbody>
+        </table>
+    </div>
+
+    <script src="js/index.js"> </script>
+</body>
+</html>
