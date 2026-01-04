@@ -463,7 +463,7 @@
             }
 
             if (isCylinder && itemType === 'body') {   
-                if (isMass) {         
+                if (isMass && experiment == 2) {         
                     placeBodyOnCylinder(draggedElement, mass);
                     isMass = false;
                 }
